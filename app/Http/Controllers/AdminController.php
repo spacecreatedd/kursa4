@@ -147,4 +147,33 @@ class AdminController extends Controller
             return response()->json(['errors' => $e->errors()], 422);
         }
     }
+
+
+    public function get_country()
+    {
+        $countries = Country::all();
+
+        return response()->json($countries);
+    }
+    
+    public function get_ticket()
+    {
+        $tickets = Ticket::all();
+
+        return response()->json($tickets);
+    }
+    
+    public function get_hotel()
+    {
+        $hotels = Hotel::all();
+    
+        return response()->json($hotels);
+    }
+
+    public function get_tour_operators()
+    {
+        $operators = Tour_Operator::all();
+
+        return response()->json($operators);
+    }
 }
