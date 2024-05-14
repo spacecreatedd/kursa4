@@ -86,4 +86,26 @@ class AuthController extends Controller
             'success' => true,
         ]);
     }
+
+    public function profile(Request $request)
+    {
+        $user = Auth::user();
+
+        $request->validate([
+            'surname' => 'nullable|string',
+            'name' => 'nullable|string',
+            'patronym' => 'nullable|string',
+            "login" => 'nullable|string|unique:users,login',
+            "password" => [
+                'nullable',
+                Password::min(8)->mixedCase()->numbers()->symbols()    
+            ]
+            ]);
+
+        $data = array_filter($request->all());
+
+        $user->update($data);
+
+        return response()->json(['message' => 'Profile updated successfully'], 200);
+    }
 }

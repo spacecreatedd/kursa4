@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Like;
+use App\Models\Tour;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
@@ -14,13 +15,11 @@ class LikeController extends Controller
         $user = Auth::user();
 
         $likes = Like::where('user_id', $user->id)->get();
-
-        Log::info('User likes: ' . json_encode($likes));
-
+        
         return response()->json($likes);
     }
 
-    public function add_like(Request $request, $id)
+    public function add_like($id)
     {
         $user = Auth::user();
 
@@ -33,7 +32,7 @@ class LikeController extends Controller
         return response()->json(['success' => true, 'message' => 'Like added successfully'], 200);
     }
 
-    public function remove_like(Request $request, $id)
+    public function remove_like($id)
     {
         $user = Auth::user();
         $like = Like::where('user_id', $user->id)->where('id', $id)->first();

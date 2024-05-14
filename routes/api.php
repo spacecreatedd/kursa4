@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\TourController;
 use App\Http\Controllers\AdminController;
@@ -11,6 +12,7 @@ use App\Http\Controllers\ComparisonController;
 
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
+    Route::put('/profile', [AuthController::class, 'profile']);
     
     Route::post('/countries', [AdminController::class, 'createCountry']);
     Route::post('/hotels', [AdminController::class, 'createHotel']);
@@ -19,28 +21,32 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/tours', [AdminController::class, 'createTour']);
 
     Route::post('/add-ticket/{id}', [TicketsController::class, 'add_ticket']);
-    Route::post('/get-ticket-owners', [TicketsController::class, 'get_ticket']);
+    Route::get('/get-ticket-owners', [TicketsController::class, 'get_ticket']);
     Route::delete('/remove-ticket/{id}', [TicketsController::class, 'remove_ticket']);
 
     Route::post('/add-like/{id}', [LikeController::class, 'add_like']);
-    Route::post('/get-like', [LikeController::class, 'get_like']);
+    Route::get('/get-like', [LikeController::class, 'get_like']);
     Route::delete('/remove-like/{id}', [LikeController::class, 'remove_like']);
 
     Route::post('/add-comparison/{id}', [ComparisonController::class, 'add_comparison']);
-    Route::post('/get-comparison', [ComparisonController::class, 'get_comparison']);
+    Route::get('/get-comparison', [ComparisonController::class, 'get_comparison']);
     Route::delete('/remove-comparison/{id}', [ComparisonController::class, 'remove_comparison']);
 
     Route::get('/get-tickets', [AdminController::class, 'get_ticket']);
     Route::get('/get-countries', [AdminController::class, 'get_country']);
     Route::get('/get-hotels', [AdminController::class, 'get_hotel']);
     Route::get('/get-touroperators', [AdminController::class, 'get_tour_operators']);
+
+    Route::get('/user', function (Request $request) {
+        return Auth::user();
+    });
 });
 
 
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
-Route::post('/get-tours', [TourController::class, 'get_tour']);
+Route::get('/get-tours', [TourController::class, 'get_tour']);
 
 // this.countries = this.$store.dispatch('GET_COUNTRIES');
 // this.tickets = this.$store.dispatch('GET_TICKETS');

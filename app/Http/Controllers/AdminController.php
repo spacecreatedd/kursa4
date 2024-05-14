@@ -34,7 +34,8 @@ class AdminController extends Controller
         return response()->json(['message' => 'Country created successfully', 'data' => $country], 201);
     }
 
-    public function createHotel(Request $request){
+    public function createHotel(Request $request)
+    {
         $user = Auth::user();
 
         if ($user->role !== 'admin') {
@@ -57,7 +58,8 @@ class AdminController extends Controller
         return response()->json(['message' => 'Hotel created successfully', 'data' => $hotel], 201);
     }
 
-    public function createTicket(Request $request){
+    public function createTicket(Request $request)
+    {
         $user = Auth::user();
 
         if ($user->role !== 'admin') {
@@ -147,7 +149,6 @@ class AdminController extends Controller
             return response()->json(['errors' => $e->errors()], 422);
         }
     }
-
 
     public function get_country()
     {
