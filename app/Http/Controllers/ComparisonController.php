@@ -15,8 +15,6 @@ class ComparisonController extends Controller
 
         $comparisons = Comparison::where('user_id', $user->id)->get();
 
-        Log::info('User comparisons: ' . json_encode($comparisons));
-
         return response()->json($comparisons);
     }
 

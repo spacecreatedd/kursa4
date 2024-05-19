@@ -17,16 +17,7 @@ class TicketsController extends Controller
     
         $tickets = Ticket_Owner::where('user_id', $user->id)->get();
     
-        $ticketDetails = [];
-    
-        foreach ($tickets as $ticketOwner) {
-            $ticket = Ticket::find($ticketOwner->ticket_id);
-            if ($ticket) {
-                $ticketDetails[] = $ticket;
-            }
-        }
-    
-        return response()->json($ticketDetails);
+        return response()->json($tickets);
     }
 
     public function remove_ticket(Request $request, $id)

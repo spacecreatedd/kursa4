@@ -56,8 +56,3 @@ Route::get('/get-hotels', [TourController::class, 'get_hotel']);
 Route::get('/get-tickets', [TourController::class, 'get_ticket']);
 Route::get('/get-operators', [TourController::class, 'get_operator']);
 Route::get('/search-tour', [TourController::class, 'search_tour']);
-
-// this.countries = this.$store.dispatch('GET_COUNTRIES');
-// this.tickets = this.$store.dispatch('GET_TICKETS');
-// this.hotels = this.$store.dispatch('GET_HOTELS');
-// this.tourOperatos = this.$store.dispatch('GET_TOUROPERATORS');
