@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Ticket;
-use App\Models\Ticket__owner;
+use App\Models\Ticket_Owner;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
@@ -15,7 +15,7 @@ class TicketsController extends Controller
     {
         $user = Auth::user();
     
-        $tickets = Ticket__owner::where('user_id', $user->id)->get();
+        $tickets = Ticket_Owner::where('user_id', $user->id)->get();
     
         $ticketDetails = [];
     
@@ -26,15 +26,14 @@ class TicketsController extends Controller
             }
         }
     
-        Log::info('User tickets: ' . json_encode($ticketDetails));
-    
         return response()->json($ticketDetails);
     }
 
     public function remove_ticket(Request $request, $id)
     {
         $user = Auth::user();
-        $ticket = Ticket__owner::where('user_id', $user->id)->where('id', $id)->first();
+        
+        $ticket = Ticket_Owner::where('user_id', $user->id)->where('ticket_id', $id)->first();
 
         if ($ticket) {
             $ticket->delete();
@@ -44,11 +43,11 @@ class TicketsController extends Controller
         }
     }
 
-    public function add_ticket(Request $request, $id)
+    public function add_ticket($id)
     {
         $user = Auth::user();
 
-        Ticket__owner::create([
+        Ticket_Owner::create([
             'user_id' => $user->id,
             'ticket_id' => $id
         ]);
@@ -56,5 +55,16 @@ class TicketsController extends Controller
         return response([
             'success' => 'added to basket'
         ],201);
+    }
+
+    public function get_one_owner($id)
+    {
+        $user = Auth::user();
+
+        $id = (int)$id;
+
+        $ticket = Ticket_Owner::where('user_id', $user->id)->where('ticket_id', $id)->first();
+
+        return response()->json($ticket);
     }
 }

@@ -23,7 +23,10 @@ class ComparisonController extends Controller
     public function remove_comparison(Request $request, $id)
     {
         $user = Auth::user();
-        $comparison = Comparison::where('user_id', $user->id)->where('id', $id)->first();
+
+        $id = (int)$id;
+        
+        $comparison = Comparison::where('user_id', $user->id)->where('tour_id', $id)->first();
 
         if ($comparison) {
             $comparison->delete();
@@ -43,5 +46,14 @@ class ComparisonController extends Controller
         ]);
 
         return response()->json(['success' => true, 'message' => 'Comparison added successfully'], 201);
+    }
+
+    public function get_one_comparison($id)
+    {
+        $user = Auth::user();
+
+        $comparison = Comparison::where('user_id', $user->id)->where('tour_id', $id)->first();
+
+        return response()->json($comparison);
     }
 }

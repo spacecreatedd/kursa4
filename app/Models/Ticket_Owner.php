@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Src\Auth\IdentityInterface;
 
-class Ticket__owner extends Model
+class Ticket_Owner extends Model
 {
     use HasFactory;
 

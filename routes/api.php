@@ -36,6 +36,9 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/get-countries', [AdminController::class, 'get_country']);
     Route::get('/get-hotels', [AdminController::class, 'get_hotel']);
     Route::get('/get-touroperators', [AdminController::class, 'get_tour_operators']);
+    
+    Route::get('/get-one-owner/{id}', [TicketsController::class, 'get_one_owner']);
+    Route::get('/get-one-comparison/{id}', [ComparisonController::class, 'get_one_comparison']);
 
     Route::get('/user', function (Request $request) {
         return Auth::user();
@@ -47,6 +50,12 @@ Route::middleware(['auth:sanctum'])->group(function () {
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::get('/get-tours', [TourController::class, 'get_tour']);
+Route::get('/get-one-tour/{id}', [TourController::class, 'get_one_tour']);
+Route::get('/get-countries', [TourController::class, 'get_country']);
+Route::get('/get-hotels', [TourController::class, 'get_hotel']);
+Route::get('/get-tickets', [TourController::class, 'get_ticket']);
+Route::get('/get-operators', [TourController::class, 'get_operator']);
+Route::get('/search-tour', [TourController::class, 'search_tour']);
 
 // this.countries = this.$store.dispatch('GET_COUNTRIES');
 // this.tickets = this.$store.dispatch('GET_TICKETS');
