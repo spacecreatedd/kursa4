@@ -63,6 +63,7 @@ class AuthController extends Controller
 
         if (!Auth::attempt($validatedData)) {
             return response([
+                'status' => false,
                 'errors' => 'Wrong credentials'
             ], 422);
         }
